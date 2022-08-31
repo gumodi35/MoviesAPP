@@ -9,7 +9,9 @@ const router = express.Router();
 router.route('/').get(MoviesController.apiGetMovies)
 
 router
-    .route("/review")
+     .route("/review")
+     router.route("/id/:id").get(MoviesController.apiGetMovieById)
+     router.route("/ratings").get(MoviesController.apiGetRatings)
     .post(ReviewsController.apiPostReview)
     .put(ReviewsController.apiUpdateReview)
     .delete(ReviewsController.apiDeleteReview)

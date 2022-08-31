@@ -12,7 +12,7 @@ export default class ReviewsDAO{
             reviews = await conn.db(process.env.MOVIEREVIEWS_NS).collection("reviews")
         }
         catch(e){
-            console.error(`unable to establish connection handle in reviewDAO: ${e}`)
+            console.error(`unable to establish connection handle in reviewDAO:${e}`)
         }
     }
 
@@ -28,7 +28,7 @@ export default class ReviewsDAO{
             return await reviews.insertOne(reviewDoc)
         }
         catch(e){
-            console.error(`unable to post review: ${e}`)
+            console.error(`unable to post review:${e}`)
             return { error: e }
         }
     }
@@ -36,7 +36,7 @@ export default class ReviewsDAO{
     static async updateReview(reviewId, userId, review, date){
         try{
             const updateResponse = await reviews.updateOne(
-                { user_id:user,_id:ObjectId(reviewId) },
+                {user_id: userId, _id: ObjectId(reviewId)},
                 {$set:{review:review, date: date}}
             )
             return updateResponse
@@ -51,7 +51,7 @@ export default class ReviewsDAO{
         try{
             const deleteResponse = await reviews.deleteOne({
                 _id: ObjectId(reviewId),
-                user_id:userId,
+                user_id: userId,
             })
             return deleteResponse
         }
