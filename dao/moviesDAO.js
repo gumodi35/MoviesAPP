@@ -2,7 +2,7 @@
 let movies
 
 // export the class MoviesDAO and provides the database reference to movies
-export default class MoviesDao{
+export default class MoviesDAO{
     static async injectDB(conn){
         if(movies){
             return
@@ -19,17 +19,19 @@ export default class MoviesDao{
  static async getMovies({
      filters = null,
      page = 0,
-     moviesPerpage = 20,
+     moviesPerPage = 20,
  } = {}){
      let query
      if(filters){
-         if(filters.hasOwnProperty('title')){
-             query = { $text: { $search: filter['title']}}
-         } else if(filters.hasOwnProperty("rated")){
+         if("title" in filters){
+             query = { $text: { $search: filters['title']}}
+         } else if("rated" in filters){
              query = { "rated": { $eq: filters["rated"]}}
          }
      }
  
+     query = { "rated": filters["rated"]}
+
      let cursor
      try{
              cursor = await movies
